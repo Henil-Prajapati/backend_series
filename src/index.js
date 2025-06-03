@@ -10,7 +10,18 @@ dotenv.config(
     }
 );  
 
-connectDB();
+connectDB()
+.then(() => {
+    app.listen(process.env.PORT, () => {
+        console.log("Express server started successfully");
+        console.log(`Server is running on port ${process.env.PORT}`);
+    });
+    console.log("Database connected successfully");
+})
+.catch(error => {
+    console.error("Error connecting to MongoDB:", error);
+    process.exit(1); // Exit the process with failure
+});
 
 const app = express();
 
