@@ -2,7 +2,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import connectDB from "./db/index.js";
-
+import app from './app.js';
 
 dotenv.config(
     { 
@@ -22,11 +22,6 @@ connectDB()
     console.error("Error connecting to MongoDB:", error);
     process.exit(1); // Exit the process with failure
 });
-
-const app = express();
-
-
-
 
 
 
