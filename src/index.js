@@ -1,27 +1,22 @@
-// require("dotenv").config({path: "./.env"});  
-import dotenv from "dotenv";
-import express from "express";
+// require('dotenv').config({path: './env'})
+import dotenv from "dotenv"
 import connectDB from "./db/index.js";
-import app from './app.js';
+import {app} from './app.js'
+dotenv.config({
+    path: './.env'
+})
 
-dotenv.config(
-    { 
-        path: "./.env" 
-    }
-);  
+
 
 connectDB()
 .then(() => {
-    app.listen(process.env.PORT, () => {
-        console.log("Express server started successfully");
-        console.log(`Server is running on port ${process.env.PORT}`);
-    });
-    console.log("Database connected successfully");
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+    })
 })
-.catch(error => {
-    console.error("Error connecting to MongoDB:", error);
-    process.exit(1); // Exit the process with failure
-});
+.catch((err) => {
+    console.log("MONGO db connection failed !!! ", err);
+})
 
 
 
@@ -32,30 +27,25 @@ connectDB()
 
 
 
+// /*
+// import express from "express"
+// const app = express()
+// ( async () => {
+//     try {
+//         await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
+//         app.on("errror", (error) => {
+//             console.log("ERRR: ", error);
+//             throw error
+//         })
 
+//         app.listen(process.env.PORT, () => {
+//             console.log(`App is listening on port ${process.env.PORT}`);
+//         })
 
+//     } catch (error) {
+//         console.error("ERROR: ", error)
+//         throw err
+//     }
+// })()
 
-
-
-
-
-
-/*
-(async () => {
-    try {
-        await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-
-        app.on("error" ,(error) => {
-            console.error("Error in app:", error);
-            throw error;
-        })
-
-
-        app.listen(process.env.PORT, () => {
-            console.log(`Server is running on port ${process.env.PORT}`);
-        });
-    } catch (error) {
-        console.error("Error connecting to MongoDB:", error);
-    }
-})()
-*/
+// */
